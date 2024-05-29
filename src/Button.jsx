@@ -1,4 +1,6 @@
 
+import "./Button.css";
+
 /** Button to re-start a game of Snowman.
  *
  * Props:
@@ -13,6 +15,6 @@ function Button({ click, label }) {
       {label}
     </button>
   );
-}
+};
 
 export default Button;
