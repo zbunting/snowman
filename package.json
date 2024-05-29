@@ -1,0 +1,31 @@
+{
+  "name": "snowman",
+  "version": "1.0.0",
+  "homepage": "https://github.com/rithmschool/start/",
+  "type": "module",
+  "scripts": {
+    "start": "vite --open",
+    "build": "vite build",
+    "test": "vitest",
+    "test:cov": "vitest --coverage"
+  },
+  "devDependencies": {
+    "@testing-library/jest-dom": "*",
+    "@testing-library/react": "*",
+    "@tsconfig/vite-react": "*",
+    "@types/bootstrap": "*",
+    "@types/jsdom": "*",
+    "@types/react": "*",
+    "@types/react-dom": "*",
+    "@vitejs/plugin-react": "*",
+    "jsdom": "*",
+    "vite": "*",
+    "vitest": "*",
+    "@vitest/coverage-v8": "*"
+  },
+  "dependencies": {
+    "bootstrap": "*",
+    "react": "*",
+    "react-dom": "*"
+  }
+}
