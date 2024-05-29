@@ -18,7 +18,10 @@ test("no button area and shows loss message on loss", function () {
   ).not.toBeInTheDocument();
 
   expect(
-    container.toContainHTML(`You lose ${TEST_WORD}`)
-  );
+    container).toContainHTML(`You lose! The word was ${TEST_WORD}.`);
 });
 
+test("matches snapshot", function () {
+  const { container } = render(<Snowman />);
+  expect(container).toMatchSnapshot();
+});
