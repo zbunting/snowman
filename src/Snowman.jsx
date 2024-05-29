@@ -58,11 +58,13 @@ function Snowman({
     setNWrong(n => n + (answer.includes(ltr) ? 0 : 1));
   }
 
+  // TODO: is there a way to do this with event delegation in React?
   /** generateButtons: return array of letter buttons to render */
   function generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
         <button
             key={ltr}
+            className={ltr}
             value={ltr}
             onClick={handleGuess}
             disabled={guessedLetters.has(ltr)}
@@ -75,6 +77,7 @@ function Snowman({
   return (
       <div className="Snowman">
         <img src={(images)[nWrong]} alt={nWrong} />
+        <p>Number wrong: {nWrong}</p>
         <p className="Snowman-word">{guessedWord()}</p>
         <p>{generateButtons()}</p>
       </div>
