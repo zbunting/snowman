@@ -8,6 +8,7 @@ import img4 from "./4.png";
 import img5 from "./5.png";
 import img6 from "./6.png";
 import { randomWord, ENGLISH_WORDS } from "./words";
+import Button from "./Button.jsx";
 
 
 /** Snowman game: plays hangman-style game with a melting snowman.
@@ -59,7 +60,6 @@ function Snowman({
     setNWrong(n => n + (answer.includes(ltr) ? 0 : 1));
   }
 
-  // TODO: is there a way to do this with event delegation in React?
   /** generateButtons: return array of letter buttons to render */
   function generateButtons() {
     return "abcdefghijklmnopqrstuvwxyz".split("").map(ltr => (
@@ -75,6 +75,13 @@ function Snowman({
     ));
   }
 
+  /** restartGame: reset game states for a new game. */
+  function restartGame() {
+    setNWrong(0);
+    setGuessedLetters(new Set());
+    setAnswer(randomWord(words));
+  }
+
   const won = guessedWord().join("") === answer;
 
   return (
@@ -85,6 +92,7 @@ function Snowman({
       {nWrong < maxWrong && !won && <p>{generateButtons()}</p>}
       {nWrong >= maxWrong && <p>You lose! The word was {answer}.</p>}
       {won && <p>You win!</p>}
+      <Button label="Start a new game!" click={restartGame} />
     </div>
   );
 }
