@@ -5,26 +5,77 @@ import Snowman from "./Snowman.jsx";
 
 const TEST_WORD = "apple";
 
-test("no button area and shows loss message on loss", function () {
-  const { container, debug } = render(<Snowman
-    words={[TEST_WORD]}
-    maxWrong={1}
-  />);
+describe("test Snowman compenent", function () {
+  test("matches snapshot", function () {
+    const { container } = render(<Snowman words={[TEST_WORD]} />);
+    expect(container).toMatchSnapshot();
+  });
 
-  fireEvent.click(container.querySelector("button[value='x']"));
+  test("no button area and shows win message on win", function () {
+    const { container, debug } = render(<Snowman
+      words={[TEST_WORD]}
+      maxWrong={2}
+    />);
 
-  expect(
-    container.querySelector("button[value='a']")
-  ).not.toBeInTheDocument();
+    fireEvent.click(container.querySelector("button[value='a']"));
 
-  expect(
-    container).toContainHTML(`You lose! The word was ${TEST_WORD}.`);
+    fireEvent.click(container.querySelector("button[value='p']"));
+    fireEvent.click(container.querySelector("button[value='l']"));
+    fireEvent.click(container.querySelector("button[value='e']"));
+
+    expect(
+      container.querySelector("button[value='a']")
+    ).not.toBeInTheDocument();
+
+    expect(
+      container).toContainHTML(`You win!`);
+  });
+
+  test("image stays the same after correct guess", function () {
+    const { container, debug } = render(<Snowman
+      words={[TEST_WORD]}
+      maxWrong={2}
+    />);
+
+    fireEvent.click(container.querySelector("button[value='a']"));
+
+    expect(
+      container.querySelector("img[alt='0']")
+    ).toBeInTheDocument();
+  });
+
+  test("no button area and shows loss message on loss", function () {
+    const { container, debug } = render(<Snowman
+      words={[TEST_WORD]}
+      maxWrong={2}
+    />);
+
+    fireEvent.click(container.querySelector("button[value='x']"));
+
+    fireEvent.click(container.querySelector("button[value='q']"));
+
+    expect(
+      container.querySelector("button[value='a']")
+    ).not.toBeInTheDocument();
+
+    expect(
+      container).toContainHTML(`You lose! The word was ${TEST_WORD}.`);
+  });
+
+  test("image changes after incorrect guess", function () {
+    const { container, debug } = render(<Snowman
+      words={[TEST_WORD]}
+      maxWrong={2}
+    />);
+
+    expect(
+      container.querySelector("img[alt='0']")
+    ).toBeInTheDocument();
+
+    fireEvent.click(container.querySelector("button[value='x']"));
+
+    expect(
+      container.querySelector("img[alt='1']")
+    ).toBeInTheDocument();
+  });
 });
-
-test("matches snapshot", function () {
-  const { container } = render(<Snowman />);
-  expect(container).toMatchSnapshot();
-});
-
-// TODO: Add additional testing for win and lose states
-// increase maxWrong to confirm that it works as user clicks
